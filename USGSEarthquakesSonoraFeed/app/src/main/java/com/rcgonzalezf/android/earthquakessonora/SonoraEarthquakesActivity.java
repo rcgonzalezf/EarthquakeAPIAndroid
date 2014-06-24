@@ -1,9 +1,10 @@
 package com.rcgonzalezf.android.earthquakessonora;
 
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
-public class SonoraEarthquakesActivity extends FragmentActivity {
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
+public class SonoraEarthquakesActivity extends SherlockFragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
