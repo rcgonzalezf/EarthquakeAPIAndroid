@@ -1,10 +1,8 @@
 package com.rcgonzalezf.android.earthquakessonora;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 
-
-public class SonoraEarthquakesActivity extends ActionBarActivity {
+public class SonoraEarthquakesActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
