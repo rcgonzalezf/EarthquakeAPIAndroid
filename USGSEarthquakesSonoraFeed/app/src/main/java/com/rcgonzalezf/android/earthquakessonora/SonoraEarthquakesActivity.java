@@ -1,15 +1,16 @@
 package com.rcgonzalezf.android.earthquakessonora;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 
-public class SonoraEarthquakesActivity extends SherlockFragmentActivity {
+public class SonoraEarthquakesActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sonora_earthquakes);
+        getSupportActionBar().setTitle(getString(R.string.app_name));
     }
 
     @Override
