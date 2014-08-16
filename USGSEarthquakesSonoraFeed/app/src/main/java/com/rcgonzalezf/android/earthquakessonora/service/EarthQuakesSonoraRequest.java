@@ -23,7 +23,7 @@ public class EarthQuakesSonoraRequest extends RetrofitSpiceRequest<EarthQuakesSo
 
     @Override
     public EarthQuakesSonoraMessage loadDataFromNetwork() {
-        return getService().empresaMovilInfo(north,south,east,west,username);
+        return getService().earthQuakesList(north,south,east,west,username);
     }
 
 }

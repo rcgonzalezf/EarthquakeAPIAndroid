@@ -4,7 +4,7 @@ import com.octo.android.robospice.retrofit.RetrofitGsonSpiceService;
 
 public class EarthquakesSonoraSpiceService extends RetrofitGsonSpiceService {
 
-    private final static String BASE_URL = "http://api.geonames.org/earthquakesJSON";
+    private final static String BASE_URL = "http://api.geonames.org";
 
     @Override
     public void onCreate() {
