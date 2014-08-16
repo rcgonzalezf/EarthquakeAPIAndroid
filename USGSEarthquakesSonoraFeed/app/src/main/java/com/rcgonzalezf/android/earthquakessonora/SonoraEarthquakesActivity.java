@@ -24,21 +24,27 @@ public class SonoraEarthquakesActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        EarthQuakesSonoraRequest request = new EarthQuakesSonoraRequest("44.1","-9.9","-22.4","55.2","demo");
+
+        // TODO RCGF Double check with a map if the coordinates are correct
+        EarthQuakesSonoraRequest request = new EarthQuakesSonoraRequest("31.329382","26.376271","-108.704123","-112.412008","sonoraEarthquakes");
+
+        getSpiceManager().execute(request, new EarthQuakeRequestListener());
+    }
 
 
-        getSpiceManager().execute(request, new RequestListener<EarthQuakesSonoraMessage>() {
-            @Override
-            public void onRequestFailure(SpiceException spiceException) {
-                Log.d(TAG, "Earthquakes Request Failure", spiceException);
+    private class EarthQuakeRequestListener implements RequestListener<EarthQuakesSonoraMessage>
+    {
+        @Override
+        public void onRequestFailure(SpiceException spiceException) {
+            Log.d(TAG, "Earthquakes Request Failure", spiceException);
 
-            }
+        }
 
-            @Override
-            public void onRequestSuccess(EarthQuakesSonoraMessage earthQuakesSonoraMessage) {
-                message = earthQuakesSonoraMessage;
-            }
-        });
+        @Override
+        public void onRequestSuccess(EarthQuakesSonoraMessage earthQuakesSonoraMessage) {
+            message = earthQuakesSonoraMessage;
+        }
+
     }
 
 }
