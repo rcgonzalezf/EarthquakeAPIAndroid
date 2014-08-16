@@ -3,7 +3,7 @@ package com.rcgonzalezf.android.earthquakessonora.responses;
 import java.util.List;
 
 public class EarthQuakesSonoraMessage {
-    List<EarthQuakeInfo> earthquakes;
+    public List<EarthQuakeInfo> earthquakes;
 
     public class EarthQuakeInfo{
 

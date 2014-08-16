@@ -2,6 +2,9 @@ package com.rcgonzalezf.android.earthquakessonora;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
@@ -13,11 +16,14 @@ public class SonoraEarthquakesActivity extends BaseActivity {
 
     private EarthQuakesSonoraMessage message = null;
     private String TAG = SonoraEarthquakesActivity.class.getSimpleName();
+    private TableLayout earthquakesTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sonora_earthquakes);
+
+        earthquakesTable = (TableLayout) findViewById(R.id.earthquakes_table_layout);
        //getSupportActionBar().setTitle(getString(R.string.app_name));
     }
 
@@ -31,18 +37,32 @@ public class SonoraEarthquakesActivity extends BaseActivity {
         getSpiceManager().execute(request, new EarthQuakeRequestListener());
     }
 
+    private void fillEarthQuakesTable(){
+
+        for(EarthQuakesSonoraMessage.EarthQuakeInfo earthQuakeInfo : message.earthquakes )
+        {
+            TableRow earthquake = new TableRow(this);
+            TextView magnitude = new TextView(this);
+
+            magnitude.setText(String.valueOf( earthQuakeInfo.magnitude) );
+
+            earthquake.addView(magnitude);
+            earthquakesTable.addView(earthquake);
+        }
+
+    }
 
     private class EarthQuakeRequestListener implements RequestListener<EarthQuakesSonoraMessage>
     {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
             Log.d(TAG, "Earthquakes Request Failure", spiceException);
-
         }
 
         @Override
         public void onRequestSuccess(EarthQuakesSonoraMessage earthQuakesSonoraMessage) {
             message = earthQuakesSonoraMessage;
+            fillEarthQuakesTable();
         }
 
     }
