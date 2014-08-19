@@ -32,7 +32,8 @@ public class SonoraEarthquakesActivity extends BaseActivity {
         super.onResume();
 
         // TODO RCGF Double check with a map if the coordinates are correct
-        EarthQuakesSonoraRequest request = new EarthQuakesSonoraRequest("31.329382","26.376271","-108.704123","-112.412008","sonoraEarthquakes");
+        EarthQuakesSonoraRequest request = new EarthQuakesSonoraRequest(getApplicationContext(),
+                                                "31.329382","26.376271","-108.704123","-112.412008","sonoraEarthquakes");
 
         getSpiceManager().execute(request, new EarthQuakeRequestListener());
     }
@@ -43,9 +44,12 @@ public class SonoraEarthquakesActivity extends BaseActivity {
         {
             TableRow earthquake = new TableRow(this);
             TextView magnitude = new TextView(this);
+            TextView country = new TextView(this);
 
             magnitude.setText(String.valueOf( earthQuakeInfo.magnitude) );
+            country.setText(earthQuakeInfo.address);
 
+            earthquake.addView(country);
             earthquake.addView(magnitude);
             earthquakesTable.addView(earthquake);
         }

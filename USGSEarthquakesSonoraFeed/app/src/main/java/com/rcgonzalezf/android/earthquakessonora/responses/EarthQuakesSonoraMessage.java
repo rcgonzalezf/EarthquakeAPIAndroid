@@ -14,6 +14,6 @@ public class EarthQuakesSonoraMessage {
         public String datetime;
         public Double depth;
         public Double lat;
-
+        public String address;
     }
 }
