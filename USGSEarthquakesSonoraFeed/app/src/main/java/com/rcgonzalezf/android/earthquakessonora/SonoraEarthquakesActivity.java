@@ -49,8 +49,8 @@ public class SonoraEarthquakesActivity extends BaseActivity {
             magnitude.setText(String.valueOf( earthQuakeInfo.magnitude) );
             country.setText(earthQuakeInfo.address);
 
-            earthquake.addView(country);
             earthquake.addView(magnitude);
+            earthquake.addView(country);
             earthquakesTable.addView(earthquake);
         }
 
