@@ -49,15 +49,18 @@ public class SonoraEarthquakesActivity extends BaseActivity {
         {
             TableRow earthquake = new TableRow(this);
             TextView magnitude = new TextView(this);
+            TextView date = new TextView(this);
             TextView country = new TextView(this);
             ImageButton showMap = new ImageButton(this);
 
             magnitude.setText(String.valueOf( earthQuakeInfo.magnitude) );
+            date.setText(earthQuakeInfo.datetime);
             country.setText(earthQuakeInfo.address);
             showMap.setImageResource(R.drawable.ic_action_locate);
             showMap.setOnClickListener(new ShowMapOnClickListener(earthQuakeInfo.lat, earthQuakeInfo.lng, earthQuakeInfo.magnitude));
 
             earthquake.addView(magnitude);
+            earthquake.addView(date);
             earthquake.addView(country);
             earthquake.addView(showMap);
             earthquakesTable.addView(earthquake);
