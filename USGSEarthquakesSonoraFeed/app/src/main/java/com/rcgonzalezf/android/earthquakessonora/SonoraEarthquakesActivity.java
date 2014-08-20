@@ -54,7 +54,7 @@ public class SonoraEarthquakesActivity extends BaseActivity {
             magnitude.setText(String.valueOf( earthQuakeInfo.magnitude) );
             country.setText(earthQuakeInfo.address);
             showMap.setText("showMap");
-            showMap.setOnClickListener(new ShowMapOnClickListener(earthQuakeInfo.lat, earthQuakeInfo.lng));
+            showMap.setOnClickListener(new ShowMapOnClickListener(earthQuakeInfo.lat, earthQuakeInfo.lng, earthQuakeInfo.magnitude));
 
             earthquake.addView(magnitude);
             earthquake.addView(country);
@@ -83,14 +83,16 @@ public class SonoraEarthquakesActivity extends BaseActivity {
 
         private final double lng;
         private final double lat;
+        private final double magnitude;
 
-        public ShowMapOnClickListener(double lat, double lng){
+        public ShowMapOnClickListener(double lat, double lng, Double magnitude){
             this.lat = lat;
             this.lng = lng;
+            this.magnitude = magnitude;
         }
         @Override
         public void onClick(View v) {
-            showMap(Uri.parse("geo:"+lat+","+lng+"?z=6") );
+            showMap(Uri.parse("geo:"+lat+","+lng+"?q="+lat+","+lng+"(Magnitude: "+magnitude+")&z=6") );
         }
 
         public void showMap(Uri geoLocation) {
