@@ -1,7 +1,11 @@
 package com.rcgonzalezf.android.earthquakessonora;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -45,12 +49,16 @@ public class SonoraEarthquakesActivity extends BaseActivity {
             TableRow earthquake = new TableRow(this);
             TextView magnitude = new TextView(this);
             TextView country = new TextView(this);
+            Button showMap = new Button(this);
 
             magnitude.setText(String.valueOf( earthQuakeInfo.magnitude) );
             country.setText(earthQuakeInfo.address);
+            showMap.setText("showMap");
+            showMap.setOnClickListener(new ShowMapOnClickListener(earthQuakeInfo.lat, earthQuakeInfo.lng));
 
             earthquake.addView(magnitude);
             earthquake.addView(country);
+            earthquake.addView(showMap);
             earthquakesTable.addView(earthquake);
         }
 
@@ -71,4 +79,26 @@ public class SonoraEarthquakesActivity extends BaseActivity {
 
     }
 
+    private class ShowMapOnClickListener implements View.OnClickListener {
+
+        private final double lng;
+        private final double lat;
+
+        public ShowMapOnClickListener(double lat, double lng){
+            this.lat = lat;
+            this.lng = lng;
+        }
+        @Override
+        public void onClick(View v) {
+            showMap(Uri.parse("geo:"+lat+","+lng+"?z=6") );
+        }
+
+        public void showMap(Uri geoLocation) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(geoLocation);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        }
+    }
 }
