@@ -9,6 +9,6 @@ public interface EarthQuakesSonoraService {
 
     @GET("/earthquakesJSON")
     EarthQuakesSonoraMessage earthQuakesList(@Query("north") String north, @Query("south") String south, @Query("east") String east,
-                                         @Query("west") String west, @Query("username")  String username);
+                                             @Query("west") String west, @Query("username") String username, @Query("maxRows") String maxRows);
 
 }
