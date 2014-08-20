@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -49,11 +50,11 @@ public class SonoraEarthquakesActivity extends BaseActivity {
             TableRow earthquake = new TableRow(this);
             TextView magnitude = new TextView(this);
             TextView country = new TextView(this);
-            Button showMap = new Button(this);
+            ImageButton showMap = new ImageButton(this);
 
             magnitude.setText(String.valueOf( earthQuakeInfo.magnitude) );
             country.setText(earthQuakeInfo.address);
-            showMap.setText("showMap");
+            showMap.setImageResource(R.drawable.ic_action_locate);
             showMap.setOnClickListener(new ShowMapOnClickListener(earthQuakeInfo.lat, earthQuakeInfo.lng, earthQuakeInfo.magnitude));
 
             earthquake.addView(magnitude);
