@@ -1,9 +1,11 @@
 package com.rcgonzalezf.android.earthquakessonora;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -59,6 +61,7 @@ public class SonoraEarthquakesActivity extends BaseActivity {
             showMap.setImageResource(R.drawable.ic_action_locate);
             showMap.setOnClickListener(new ShowMapOnClickListener(earthQuakeInfo.lat, earthQuakeInfo.lng, earthQuakeInfo.magnitude));
 
+            earthquake.setGravity(Gravity.CENTER_VERTICAL);
             earthquake.addView(magnitude);
             earthquake.addView(date);
             earthquake.addView(country);
