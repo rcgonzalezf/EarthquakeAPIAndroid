@@ -13,6 +13,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 import com.rcgonzalezf.android.earthquakessonora.responses.EarthQuakesSonoraMessage;
@@ -24,6 +25,7 @@ public class SonoraEarthquakesActivity extends BaseActivity {
     private EarthQuakesSonoraMessage message = null;
     private String TAG = SonoraEarthquakesActivity.class.getSimpleName();
     private TableLayout earthquakesTable;
+    private String lastRequestCacheKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class SonoraEarthquakesActivity extends BaseActivity {
         setContentView(R.layout.activity_sonora_earthquakes);
 
         earthquakesTable = (TableLayout) findViewById(R.id.earthquakes_table_layout);
-       //getSupportActionBar().setTitle(getString(R.string.app_name));
+        //getSupportActionBar().setTitle(getString(R.string.app_name));
     }
 
     @Override
@@ -40,22 +42,22 @@ public class SonoraEarthquakesActivity extends BaseActivity {
 
         // TODO RCGF Double check with a map if the coordinates are correct
         EarthQuakesSonoraRequest request = new EarthQuakesSonoraRequest(getApplicationContext(),
-                                                "31.329382","26.376271","-108.704123","-112.412008","sonoraEarthquakes", "20");
+                "31.329382", "26.376271", "-108.704123", "-112.412008", "sonoraEarthquakes", "20");
+        lastRequestCacheKey = request.createCacheKey();
+        getSpiceManager().execute(request, lastRequestCacheKey, 5 * DurationInMillis.ONE_MINUTE, new EarthQuakeRequestListener());
 
-        getSpiceManager().execute(request, new EarthQuakeRequestListener());
     }
 
-    private void fillEarthQuakesTable(){
+    private void fillEarthQuakesTable() {
 
-        for(EarthQuakesSonoraMessage.EarthQuakeInfo earthQuakeInfo : message.earthquakes )
-        {
+        for (EarthQuakesSonoraMessage.EarthQuakeInfo earthQuakeInfo : message.earthquakes) {
             TableRow earthquake = new TableRow(this);
             TextView magnitude = new TextView(this);
             TextView date = new TextView(this);
             TextView country = new TextView(this);
             ImageButton showMap = new ImageButton(this);
 
-            magnitude.setText(String.valueOf( earthQuakeInfo.magnitude) );
+            magnitude.setText(String.valueOf(earthQuakeInfo.magnitude));
             date.setText(earthQuakeInfo.datetime);
             country.setText(earthQuakeInfo.address);
             showMap.setImageResource(R.drawable.ic_action_locate);
@@ -64,15 +66,14 @@ public class SonoraEarthquakesActivity extends BaseActivity {
             earthquake.setGravity(Gravity.CENTER_VERTICAL);
             earthquake.addView(magnitude);
             earthquake.addView(date);
-            earthquake.addView(country);
+            //earthquake.addView(country);
             earthquake.addView(showMap);
             earthquakesTable.addView(earthquake);
         }
 
     }
 
-    private class EarthQuakeRequestListener implements RequestListener<EarthQuakesSonoraMessage>
-    {
+    private class EarthQuakeRequestListener implements RequestListener<EarthQuakesSonoraMessage> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
             Log.d(TAG, "Earthquakes Request Failure", spiceException);
@@ -92,14 +93,15 @@ public class SonoraEarthquakesActivity extends BaseActivity {
         private final double lat;
         private final double magnitude;
 
-        public ShowMapOnClickListener(double lat, double lng, Double magnitude){
+        public ShowMapOnClickListener(double lat, double lng, Double magnitude) {
             this.lat = lat;
             this.lng = lng;
             this.magnitude = magnitude;
         }
+
         @Override
         public void onClick(View v) {
-            showMap(Uri.parse("geo:"+lat+","+lng+"?q="+lat+","+lng+"(Magnitude: "+magnitude+")&z=6") );
+            showMap(Uri.parse("geo:" + lat + "," + lng + "?q=" + lat + "," + lng + "(Magnitude: " + magnitude + ")&z=6"));
         }
 
         public void showMap(Uri geoLocation) {
