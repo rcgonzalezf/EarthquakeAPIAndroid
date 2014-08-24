@@ -61,7 +61,7 @@ public class EarthQuakesSonoraRequest extends RetrofitSpiceRequest<EarthQuakesSo
 
     /**
      * This method generates a unique cache key for this request. In this case
-     * our cache key depends just on the keyword.
+     * our cache key depends on the coordinates.
      * @return
      */
     public String createCacheKey() {
