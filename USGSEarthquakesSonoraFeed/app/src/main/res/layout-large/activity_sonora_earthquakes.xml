@@ -3,35 +3,26 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <ScrollView
-        android:id="@+id/scroll_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:orientation="horizontal"
+        android:weightSum="10">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ListView
+            android:id="@+id/earthquakes_list_view"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dip"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:layout_weight="4"></ListView>
 
-            <TableLayout
-                android:id="@+id/earthquakes_table_layout"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="4"
-                android:stretchColumns="0,1">
-            </TableLayout>
-             <fragment
-                android:id="@+id/map"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="6"
-                class="com.google.android.gms.maps.SupportMapFragment" />
+        <fragment
+            android:id="@+id/map"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6" />
 
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

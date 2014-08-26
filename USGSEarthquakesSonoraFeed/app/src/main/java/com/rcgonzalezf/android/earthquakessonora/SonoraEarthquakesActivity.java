@@ -29,8 +29,7 @@ public class SonoraEarthquakesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
 
-        if( getSupportFragmentManager().findFragmentById(R.id.earthquakes_list_placeholder) == null )
-        {
+        if (getSupportFragmentManager().findFragmentById(R.id.earthquakes_list_placeholder) == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.earthquakes_list_placeholder, EarthquakeListFragment.newInstance())
                     .commit();

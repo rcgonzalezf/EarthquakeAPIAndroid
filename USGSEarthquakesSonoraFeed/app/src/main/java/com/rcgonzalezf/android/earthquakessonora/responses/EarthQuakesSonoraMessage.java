@@ -5,7 +5,7 @@ import java.util.List;
 public class EarthQuakesSonoraMessage {
     public List<EarthQuakeInfo> earthquakes;
 
-    public class EarthQuakeInfo{
+    public class EarthQuakeInfo {
 
         public String eqid;
         public Double magnitude;

@@ -1,13 +1,4 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scroll_view"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fillViewport="true">
-
-    <TableLayout
-        android:id="@+id/earthquakes_table_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="4"
-        android:stretchColumns="0,1"></TableLayout>
-</ScrollView>
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/earthquakes_list_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"></ListView>
