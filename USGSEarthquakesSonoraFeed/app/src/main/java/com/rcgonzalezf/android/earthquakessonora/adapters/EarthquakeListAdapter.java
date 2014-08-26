@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.rcgonzalezf.android.earthquakessonora.R;
@@ -33,20 +34,31 @@ public class EarthquakeListAdapter extends ArrayAdapter<EarthQuakesSonoraMessage
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        LayoutInflater inflater = (LayoutInflater) hostActivity
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View earthquakeRowView = convertView;
 
-        View earthquakeRowView = inflater.inflate(R.layout.earthquake_row, parent, false);
-        TextView magnitude = (TextView) earthquakeRowView.findViewById(R.id.eq_row_magnitude);
-        TextView datetime = (TextView) earthquakeRowView.findViewById(R.id.eq_row_datetime);
+        if( earthquakeRowView == null ) {
+
+            LayoutInflater inflater = (LayoutInflater) hostActivity
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            earthquakeRowView = inflater.inflate(R.layout.earthquake_row, parent, false);
+            ViewHolder viewHolder = new ViewHolder();
+
+            viewHolder.magnitude = (TextView) earthquakeRowView.findViewById(R.id.eq_row_magnitude);
+            viewHolder.datetime = (TextView) earthquakeRowView.findViewById(R.id.eq_row_datetime);
+            viewHolder.showMap =  (ImageButton) earthquakeRowView.findViewById(R.id.eq_row_show_map_button);
+
+            earthquakeRowView.setTag(viewHolder);
+        }
 
         EarthQuakesSonoraMessage.EarthQuakeInfo earthQuakeInfo =  getItem(position);
-
         if(  earthQuakeInfo != null  ) {
 
-            magnitude.setText(Double.toString(earthQuakeInfo.magnitude));
-            datetime.setText(earthQuakeInfo.datetime);
-            earthquakeRowView.findViewById(R.id.eq_row_show_map_button)
+            ViewHolder viewHolder = (ViewHolder) earthquakeRowView.getTag();
+
+            viewHolder.magnitude.setText(Double.toString(earthQuakeInfo.magnitude));
+            viewHolder.datetime.setText(earthQuakeInfo.datetime);
+            viewHolder.showMap
                     .setOnClickListener(
                             new ShowMapOnClickListener(earthQuakeInfo.lat, earthQuakeInfo.lng, earthQuakeInfo.magnitude));
         }
@@ -93,5 +105,11 @@ public class EarthquakeListAdapter extends ArrayAdapter<EarthQuakesSonoraMessage
                 hostActivity.startActivity(intent);
             }
         }
+    }
+
+    static class ViewHolder{
+        TextView magnitude;
+        TextView datetime;
+        ImageButton showMap;
     }
 }
