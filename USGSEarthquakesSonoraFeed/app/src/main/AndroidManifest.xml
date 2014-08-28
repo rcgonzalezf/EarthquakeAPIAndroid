@@ -40,6 +40,10 @@
      Google Maps Android API v2, but are recommended. -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- Additional permissions for Critterism -->
+
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
 
 
 </manifest>

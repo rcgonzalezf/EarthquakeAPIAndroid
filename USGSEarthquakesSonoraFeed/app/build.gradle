@@ -36,5 +36,6 @@ dependencies {
     compile 'com.netflix.rxjava:rxjava-android:0.19.+'
     compile 'com.squareup.retrofit:retrofit:1.6.1'
     compile 'com.octo.android.robospice:robospice-retrofit:1.4.12'
+    compile 'com.crittercism:crittercism-android-agent:+'
 
 }
