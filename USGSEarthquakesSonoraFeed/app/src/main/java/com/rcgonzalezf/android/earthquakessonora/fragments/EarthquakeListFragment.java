@@ -3,6 +3,7 @@ package com.rcgonzalezf.android.earthquakessonora.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ public class EarthquakeListFragment extends BaseFragment {
 
 
     private String TAG = EarthquakeListFragment.class.getSimpleName();
+    private View containerView;
     private String lastRequestCacheKey;
     private EarthQuakesSonoraMessage message = null;
     private ListView earthquakesListView;
@@ -44,9 +46,12 @@ public class EarthquakeListFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View containerView = inflater.inflate(R.layout.activity_sonora_earthquakes, container, false);
+        containerView = inflater.inflate(R.layout.activity_sonora_earthquakes, container, false);
 
         earthquakesListView = (ListView) containerView.findViewById(R.id.earthquakes_list_view);
+        if( hasTabletLayout() ){
+            showMapFragment();
+        }
 
         if (earthquakes == null) {
             earthquakes = new ArrayList<EarthQuakesSonoraMessage.EarthQuakeInfo>(Constants.DEFAULT_EARTHQUAKE_MAX_ROWS);
@@ -56,6 +61,14 @@ public class EarthquakeListFragment extends BaseFragment {
         earthquakesListView.setAdapter(earthquakeListAdapter);
 
         return containerView;
+    }
+
+    private void showMapFragment() {
+        EarthquakeMapFragment earthquakeMapFragment = new EarthquakeMapFragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.right_fragment_placeholder, earthquakeMapFragment);
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
     @Override
@@ -85,6 +98,10 @@ public class EarthquakeListFragment extends BaseFragment {
         earthquakeListAdapter.addAll(message.earthquakes);
         earthquakeListAdapter.notifyDataSetChanged();
 
+    }
+
+    public boolean hasTabletLayout(){
+        return  containerView.findViewById(R.id.right_fragment_placeholder) != null;
     }
 
     private class EarthQuakeRequestListener implements RequestListener<EarthQuakesSonoraMessage> {
