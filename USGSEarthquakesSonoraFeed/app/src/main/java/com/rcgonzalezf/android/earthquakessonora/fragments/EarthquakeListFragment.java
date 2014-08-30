@@ -3,6 +3,7 @@ package com.rcgonzalezf.android.earthquakessonora.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -64,11 +65,15 @@ public class EarthquakeListFragment extends BaseFragment {
     }
 
     private void showMapFragment() {
-        EarthquakeMapFragment earthquakeMapFragment = new EarthquakeMapFragment();
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.right_fragment_placeholder, earthquakeMapFragment);
-        ft.addToBackStack(null);
-        ft.commit();
+        Fragment fragment = (getFragmentManager().findFragmentById(R.id.right_fragment_placeholder));
+        if( fragment == null)
+        {
+            EarthquakeMapFragment earthquakeMapFragment = new EarthquakeMapFragment();
+            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            ft.replace(R.id.right_fragment_placeholder, earthquakeMapFragment);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
     }
 
     @Override

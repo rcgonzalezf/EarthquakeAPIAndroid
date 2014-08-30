@@ -1,6 +1,8 @@
 package com.rcgonzalezf.android.earthquakessonora.fragments;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,5 +35,12 @@ public class EarthquakeMapFragment extends SupportMapFragment {
         return inflater.inflate(R.layout.map_fragment_layout, container, false);
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        Fragment fragment = (getChildFragmentManager().findFragmentById(R.id.right_fragment_placeholder));
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.remove(fragment);
+        ft.commit();
+    }
 }
